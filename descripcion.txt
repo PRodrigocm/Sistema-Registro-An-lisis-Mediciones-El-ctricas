@@ -1,0 +1,5 @@
+SISTEMA DE REGISTRO Y ANALISIS DE MEDICIONES ELECTRICAS
+Registra el voltaje y la corriente de cada equipo electronico conectado a la instalacion.
+Calcula potencia en vatios, resistencia en ohmios, energia en kWh y el costo estimado del consumo.
+Guarda las mediciones en el archivo mediciones.txt para poder consultarlas en otra ejecucion.
+Presenta un resumen estadistico con los totales de potencia, energia y costo de todo el registro.
