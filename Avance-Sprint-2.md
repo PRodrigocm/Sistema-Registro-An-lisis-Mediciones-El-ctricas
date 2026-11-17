@@ -6,6 +6,11 @@
 **Modalidad:** Consola (entrada y salida por pantalla)
 **Etapa:** Sprint 2 de 4
 
+> Las referencias `archivo:línea` de este documento corresponden al cierre del
+> Sprint 2. El proyecto evolucionó en los sprints 3 y 4, por lo que esos números
+> pueden haber variado en la versión final. Las referencias actualizadas están en
+> `INFORME.md` y `Avance-Sprint-4.md`.
+
 ---
 
 ## 1. Objetivo del Sprint 2

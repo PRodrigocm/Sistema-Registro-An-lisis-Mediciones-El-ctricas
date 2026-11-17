@@ -1,4 +1,4 @@
-/* =============================================================
+/* 
    MAIN.C  --  Programa principal
    Sistema de Registro y Analisis de Mediciones Electricas
    ------------------------------------------------------------
@@ -6,10 +6,12 @@
      - Arreglo de estructuras que almacena las mediciones
      - Puntero al registro activo para procesar los datos
      - Opcion 1: registrar una medicion nueva
+   SPRINT 3: persistencia en archivo (opciones 3 y 4).
+   SPRINT 4: listado y resumen estadistico (opciones 2 y 6).
 
    Compilacion:
      gcc -Wall -Wextra -pedantic -std=c11 main.c -o main.exe
-   ============================================================= */
+    */
 
 #include <stdio.h>
 #include "mediciones.h"
@@ -19,9 +21,9 @@
 float TARIFA_KWH       = 0.75f;
 int   TOTAL_MEDICIONES = 0;
 
-/* =============================================================
+/* 
    FUNCION 1: Mostrar el menu principal en pantalla.
-   ============================================================= */
+    */
 static void mostrarMenu(void) {
     printf("\n========== MENU PRINCIPAL ==========\n");
     printf("1. Registrar medicion\n");
@@ -34,11 +36,11 @@ static void mostrarMenu(void) {
     printf("-------------------------------------\n");
 }
 
-/* =============================================================
+/* 
    FUNCION 2: Registrar una medicion nueva a traves de un
    puntero a estructura. Los calculos se almacenan dentro de la
    misma estructura a la que apunta el puntero.
-   ============================================================= */
+    */
 static void registrarMedicion(struct Medicion *medicion) {
     if (TOTAL_MEDICIONES >= MAX_MEDICIONES) {
         printf("\nLimite alcanzado: no se pueden registrar mas de %d mediciones.\n",
@@ -53,12 +55,12 @@ static void registrarMedicion(struct Medicion *medicion) {
     evaluarPotencia(medicion->potencia);
 
     printf("\nMediciones registradas en esta sesion: %d\n", TOTAL_MEDICIONES);
-    printf("[En construccion] Resumen, listado y guardado en archivo - Sprint 3 y 4.\n");
+    printf("Use la opcion 3 para guardar el registro en '%s'.\n", ARCHIVO_MEDICIONES);
 }
 
-/* =============================================================
+/* 
    PROGRAMA PRINCIPAL
-   ============================================================= */
+    */
 int main(void) {
     /* Arreglo de estructuras que almacena las mediciones */
     struct Medicion lista[MAX_MEDICIONES];
@@ -79,7 +81,6 @@ int main(void) {
 
     do {
         mostrarMenu();
-        printf("Opcion: ");
 
         /* La opcion se lee linea a linea con fgets para que el
            registro de mediciones empiece siempre en una linea
@@ -111,15 +112,15 @@ int main(void) {
                 break;
 
             case 2:
-                printf("\n[En construccion] Listado de mediciones - Sprint 4.\n");
+                listarMediciones(lista, TOTAL_MEDICIONES);
                 break;
 
             case 3:
-                printf("\n[En construccion] Guardado en archivo - Sprint 3.\n");
+                guardarMediciones(lista, TOTAL_MEDICIONES);
                 break;
 
             case 4:
-                printf("\n[En construccion] Carga desde archivo - Sprint 3.\n");
+                cargarMediciones(lista, MAX_MEDICIONES, &TOTAL_MEDICIONES);
                 break;
 
             case 5:
@@ -127,7 +128,7 @@ int main(void) {
                 break;
 
             case 6:
-                printf("\n[En construccion] Resumen estadistico - Sprint 4.\n");
+                mostrarEstadisticas(lista, TOTAL_MEDICIONES);
                 break;
 
             case 0:

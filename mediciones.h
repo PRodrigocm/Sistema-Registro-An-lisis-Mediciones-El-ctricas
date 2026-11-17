@@ -11,7 +11,7 @@
    El encabezado contiene los prototipos y las implementaciones
    declaradas static, por lo que el proyecto se compila con un
    unico archivo de traduccion:  gcc main.c -o main.exe
-   ============================================================= */
+  */
 
 #ifndef MEDICIONES_H
 #define MEDICIONES_H
@@ -19,26 +19,26 @@
 #include <stdio.h>
 #include <string.h>
 
-/* ---------- Limites de las estructuras de texto ---------- */
+/*Limites de las estructuras de texto  */
 #define MAX_NOMBRE     50   /* cadena de 50 caracteres */
 #define MAX_DETALLE    80   /* cadena de 80 caracteres */
 
-/* ---------- Limite de mediciones almacenadas en memoria ---- */
+/*Limite de mediciones almacenadas en memoria*/
 #define MAX_MEDICIONES 50
 
-/* ---------- Variables globales numericas ---------------
+/* Variables globales numericas 
    TARIFA_KWH      : costo por kilovatio-hora (float)
    TOTAL_MEDICIONES: cantidad de mediciones en el arreglo (int)
    Se declaran extern aqui y se definen en main.c.
-   ------------------------------------------------------ */
+   */
 extern float TARIFA_KWH;
 extern int   TOTAL_MEDICIONES;
 
-/* =============================================================
+/* 
    ESTRUCTURA DE DATOS  (Requisito 5)
    Almacena una medicion electrica completa.
    Contiene 10 variables numericas y 2 cadenas de texto.
-   ============================================================= */
+    */
 struct Medicion {
     int    codigo;                 /* identificador del equipo       */
     char   nombre[MAX_NOMBRE];     /* nombre del equipo (>=30 chars) */
@@ -54,9 +54,9 @@ struct Medicion {
     double costo;                  /* costo estimado del consumo     */
 };
 
-/* =============================================================
+/*
    PROTOTIPOS -- GRUPO A (8 funciones)
-   ============================================================= */
+ */
 
 /* --- Formulas electricas (5) --- */
 static float  calcularPotencia(float voltaje, float corriente);
@@ -72,19 +72,19 @@ static void   evaluarPotencia(float potencia);
 static void   ingresarMedicion(struct Medicion *medicion);
 static void   mostrarMedicion(const struct Medicion *medicion);
 
-/* =============================================================
+/* 
    FUNCION 1: Calcular la potencia electrica
    P = V * I   (watios)
-   ============================================================= */
+    */
 static float calcularPotencia(float voltaje, float corriente) {
     return voltaje * corriente;
 }
 
-/* =============================================================
+/* 
    FUNCION 2: Calcular la resistencia
    R = V / I   (ohmios). Si la corriente es cero se evita la
    division por cero devolviendo 0.
-   ============================================================= */
+     */
 static float calcularResistencia(float voltaje, float corriente) {
     if (corriente == 0.0f) {
         return 0.0f;
@@ -92,33 +92,33 @@ static float calcularResistencia(float voltaje, float corriente) {
     return voltaje / corriente;
 }
 
-/* =============================================================
+/*  
    FUNCION 3: Calcular la energia consumida
    E = (P * horas) / 1000   (kWh)
-   ============================================================= */
+     */
 static float calcularEnergia(float potencia, float horas) {
     return (potencia * horas) / 1000.0f;
 }
 
-/* =============================================================
+/* 
    FUNCION 4: Calcular la potencia real
    P_real = P * factor de potencia
-   ============================================================= */
+    */
 static float calcularPotenciaReal(float potencia, float factor) {
     return potencia * factor;
 }
 
-/* =============================================================
+/* 
    FUNCION 5: Calcular el costo estimado del consumo
    costo = energia (kWh) * tarifa
-   ============================================================= */
+    */
 static double calcularCosto(float energia, float tarifa) {
     return (double) energia * (double) tarifa;
 }
 
-/* =============================================================
+/* 
    FUNCION 6: Evaluar y clasificar la potencia del equipo
-   ============================================================= */
+    */
 static void evaluarPotencia(float potencia) {
     if (potencia >= 1000.0f) {
         printf("Estado: Potencia MUY ALTA (carga industrial)\n");
@@ -131,14 +131,14 @@ static void evaluarPotencia(float potencia) {
     }
 }
 
-/* =============================================================
+/* 
    FUNCION 7: Ingresar los datos del equipo por puntero.
    Cada campo ocupa una linea y se lee con fgets, que respeta las
    lineas vacias y no desplaza los datos siguientes. La conversion
    se hace con sscanf, que devuelve la cantidad de campos leidos.
    Si el dato no es valido se usa un valor por defecto y se avisa.
    Al terminar se calculan y almacenan todos los resultados.
-   ============================================================= */
+    */
 static void ingresarMedicion(struct Medicion *medicion) {
     char linea[256];
 
@@ -207,9 +207,9 @@ static void ingresarMedicion(struct Medicion *medicion) {
     medicion->costo        = calcularCosto(medicion->energia, TARIFA_KWH);
 }
 
-/* =============================================================
+/* 
    FUNCION 8: Mostrar todos los datos de una medicion
-   ============================================================= */
+    */
 static void mostrarMedicion(const struct Medicion *medicion) {
     printf("\n=== DATOS DEL EQUIPO %d ===\n", medicion->codigo);
     printf("Nombre        : %s\n", medicion->nombre);
